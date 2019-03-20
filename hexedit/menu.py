@@ -15,7 +15,7 @@ class Menu:
         print(self._MENU_MESSAGE)
 
     def select(self):
-        self._select: int =  int(input('> '))
+        self._select: int = int(input('> '))
 
     def execute(self):
         selected = self._select
@@ -29,5 +29,3 @@ class Menu:
         elif 2 == selected:
             sector = int(input("Sector Position > "))
             self._viewer.show(sector)
-
-
