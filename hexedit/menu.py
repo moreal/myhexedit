@@ -1,12 +1,14 @@
 from hexedit.viewer import Viewer
+from hexedit.structures.mbr import MBR
 
 
 class Menu:
-    _MENU_MESSAGE = """===== 짱짱짱 에디터 =====
-    0. 종료
-    1. 파일 경로 설정
-    2. 10육진su 보기
-    3. 파티션 정보"""
+    _MENU_MESSAGE = """
+===== 짱짱짱 에디터 =====
+0. 종료
+1. 파일 경로 설정
+2. 10육진su 보기
+3. 파티션 정보"""
 
     def __init__(self, viewer: Viewer):
         self._viewer = viewer
@@ -29,3 +31,6 @@ class Menu:
         elif 2 == selected:
             sector = int(input("Sector Position > "))
             self._viewer.show(sector)
+
+        elif 3 == selected:
+            print(*MBR.from_reader(self._viewer).PARTITION_TABLE_ENTRIES, sep='\n')
