@@ -1,6 +1,7 @@
 from io import FileIO
 from hexedit.decorators import check_opened
 
+
 class Reader:
     SECTOR_SIZE = 512
 
@@ -19,7 +20,7 @@ class Reader:
         self._file.close()
 
     @check_opened
-    def _read(self, sector: int, with_pad: bool=True):
+    def _read(self, sector: int, with_pad: bool = True):
         file = self._file
         file.seek(sector * self.SECTOR_SIZE)
         data = file.read(self.SECTOR_SIZE)
