@@ -124,3 +124,6 @@ dmypy.json
 
 # For PyCharm
 .idea
+
+# For Personal
+data
