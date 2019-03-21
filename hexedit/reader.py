@@ -26,3 +26,12 @@ class Reader:
         if with_pad:
             data += b'\x00' * (self.SECTOR_SIZE - len(data))
         return data
+
+    def get_file(self):
+        return self._file
+
+    def get_filename(self):
+        if self._file is None or self._file.closed:
+            return "No file"
+        else:
+            return self._file.name

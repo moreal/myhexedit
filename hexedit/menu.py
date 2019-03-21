@@ -6,7 +6,7 @@ class Menu:
     _MENU_MESSAGE = """
 ===== 짱짱짱 에디터 =====
 0. 종료
-1. 파일 경로 설정
+1. 파일 경로 설정 [{file_status}]
 2. 10육진su 보기
 3. 파티션 정보"""
 
@@ -14,7 +14,7 @@ class Menu:
         self._viewer = viewer
 
     def show(self):
-        print(self._MENU_MESSAGE)
+        print(self._MENU_MESSAGE.format(file_status=self._viewer.get_filename()))
 
     def select(self):
         self._select: int = int(input('> '))
