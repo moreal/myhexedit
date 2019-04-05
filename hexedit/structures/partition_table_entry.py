@@ -15,8 +15,22 @@ class PartitionTableEntry:
         def to_int(raw: bytes) -> int:
             return int.from_bytes(raw, byteorder='little')
 
+        print(to_int(raw[12:]))
+
         return PartitionTableEntry(raw[0], to_int(raw[1:4]), raw[4], to_int(raw[5:8]), to_int(raw[8:12]),
-                                   to_int(raw[12:16]))
+                                   to_int(raw[12:]))
 
     def __str__(self):
-        return "Partition Type {:02X} / LBA Address {:08X}".format(self.PARTITION_TYPE, self.START_LBA_ADDRESS)
+        return """Partition
+        Boot Flag:  {}
+        CHS Start:  {:06X}
+        Type:       {:02X}
+        CHS End:    {:06X}
+        LBA Start:  {}
+        Size:       {}MB""".format(
+            self.BOOT_INDICATOR,
+            self.START_CHS_ADDRESS,
+            self.PARTITION_TYPE,
+            self.END_CHS_ADDRESS,
+            self.START_LBA_ADDRESS,
+            self.TOTAL_SECTORS*512//1024//1024)
