@@ -15,8 +15,6 @@ class PartitionTableEntry:
         def to_int(raw: bytes) -> int:
             return int.from_bytes(raw, byteorder='little')
 
-        print(to_int(raw[12:]))
-
         return PartitionTableEntry(raw[0], to_int(raw[1:4]), raw[4], to_int(raw[5:8]), to_int(raw[8:12]),
                                    to_int(raw[12:]))
 

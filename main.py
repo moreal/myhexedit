@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from hexedit.menu import Menu
 from hexedit.viewer import Viewer
 
