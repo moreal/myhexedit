@@ -21,13 +21,14 @@ class PartitionTableEntry:
                                    to_int(raw[12:]))
 
     def __str__(self):
-        return """Partition
+        return """
         Boot Flag:  {}
         CHS Start:  {:06X}
         Type:       {:02X}
         CHS End:    {:06X}
         LBA Start:  {}
-        Size:       {}MB""".format(
+        Size:       {}MB
+        """.format(
             self.BOOT_INDICATOR,
             self.START_CHS_ADDRESS,
             self.PARTITION_TYPE,
