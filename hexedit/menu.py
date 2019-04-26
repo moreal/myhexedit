@@ -35,5 +35,5 @@ class Menu:
         elif 3 == selected:
             partition_entries = MBR.from_reader(self._viewer).PARTITION_TABLE_ENTRIES
             for index, partition_entry in enumerate(partition_entries):
-                print("Partition", index, ':')
+                print("Partition", index+1, ':')
                 print(partition_entry)
