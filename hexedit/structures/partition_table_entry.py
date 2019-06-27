@@ -1,19 +1,19 @@
 class PartitionTableEntry:
     def __init__(
         self,
-        BOOT_INDICATOR: int,
-        START_CHS_ADDRESS: int,
-        PARTITION_TYPE: int,
-        END_CHS_ADDRESS: int,
-        START_LBA_ADDRESS: int,
-        TOTAL_SECTORS: int,
+        boot_indicator: int,
+        start_chs_address: int,
+        partition_type: int,
+        end_chs_address: int,
+        start_lba_address: int,
+        total_sectors: int,
     ):
-        self.BOOT_INDICATOR = BOOT_INDICATOR
-        self.START_CHS_ADDRESS = START_CHS_ADDRESS
-        self.PARTITION_TYPE = PARTITION_TYPE
-        self.END_CHS_ADDRESS = END_CHS_ADDRESS
-        self.START_LBA_ADDRESS = START_LBA_ADDRESS
-        self.TOTAL_SECTORS = TOTAL_SECTORS
+        self.BOOT_INDICATOR = boot_indicator
+        self.START_CHS_ADDRESS = start_chs_address
+        self.PARTITION_TYPE = partition_type
+        self.END_CHS_ADDRESS = end_chs_address
+        self.START_LBA_ADDRESS = start_lba_address
+        self.TOTAL_SECTORS = total_sectors
 
     @staticmethod
     def from_bytes(raw: bytes):
