@@ -1,3 +1,4 @@
+from hexedit.structures.fat32 import Fat32
 from hexedit.viewer import Viewer
 from hexedit.structures.mbr import MBR
 
@@ -11,13 +12,13 @@ class Menu:
 3. 파티션 정보"""
 
     def __init__(self, viewer: Viewer):
-        self._viewer = viewer
+        self.__viewer = viewer
 
     def show(self):
-        print(self._MENU_MESSAGE.format(file_status=self._viewer.get_filename()))
+        print(self._MENU_MESSAGE.format(file_status=self.__viewer.get_filename()))
 
     def select(self):
-        self._select: int = int(input('> '))
+        self._select: int = int(input("> "))
 
     def execute(self):
         selected = self._select
@@ -26,14 +27,20 @@ class Menu:
             exit(0)
 
         elif 1 == selected:
-            self._viewer.open(input("File path > "))
+            self.__viewer.open(input("File path > "))
 
         elif 2 == selected:
             sector = int(input("Sector Position > "))
-            self._viewer.show(sector)
+            self.__viewer.show(sector)
 
         elif 3 == selected:
-            partition_entries = MBR.from_reader(self._viewer).PARTITION_TABLE_ENTRIES
+            partition_entries = MBR.from_reader(self.__viewer).PARTITION_TABLE_ENTRIES
             for index, partition_entry in enumerate(partition_entries):
-                print("Partition", index+1, ':')
+                print("Partition", index + 1, ":")
                 print(partition_entry)
+
+        elif 4 == selected:
+            mbr = MBR.from_reader(self.__viewer)
+            fat32s = Fat32.from_reader_with_mbr(self.__viewer, mbr)
+            for fat32 in fat32s:
+                print(fat32)
