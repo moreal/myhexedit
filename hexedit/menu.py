@@ -1,4 +1,5 @@
 from hexedit.structures.fat32 import Fat32
+from hexedit.structures.ntfs import NTFS
 from hexedit.viewer import Viewer
 from hexedit.structures.mbr import MBR
 
@@ -9,7 +10,9 @@ class Menu:
 0. 종료
 1. 파일 경로 설정 [{file_status}]
 2. 10육진su 보기
-3. 파티션 정보"""
+3. 파티션 정보
+4. FAT32 파티션 보기
+5. NTFS 파티션 보기"""
 
     def __init__(self, viewer: Viewer):
         self.__viewer = viewer
@@ -44,3 +47,9 @@ class Menu:
             fat32s = Fat32.from_reader_with_mbr(self.__viewer, mbr)
             for fat32 in fat32s:
                 print(fat32)
+
+        elif 5 == selected:
+            mbr = MBR.from_reader(self.__viewer)
+            ntfss = NTFS.from_reader_with_mbr(self.__viewer, mbr)
+            for ntfs in ntfss:
+                print(ntfs)
