@@ -25,7 +25,7 @@ class Reader:
         file.seek(sector * self.SECTOR_SIZE)
         data = file.read(self.SECTOR_SIZE)
         if with_pad:
-            data += b'\x00' * (self.SECTOR_SIZE - len(data))
+            data += b"\x00" * (self.SECTOR_SIZE - len(data))
         return data
 
     def get_file(self):
