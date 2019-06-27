@@ -1,3 +1,4 @@
+from hexedit.enums.partition_type import PartitionType
 from hexedit.structures.partition_table_entry import PartitionTableEntry
 from hexedit.reader import Reader
 
@@ -7,13 +8,13 @@ from typing import List
 class MBR:
     def __init__(
         self,
-        BOOT_CODE: bytes,
-        PARTITION_TABLE_ENTRIES: List[PartitionTableEntry],
-        SIGNATURE: bytes,
+        boot_code: bytes,
+        partition_table_entries: List[PartitionTableEntry],
+        signature: bytes,
     ):
-        self.BOOT_CODE = BOOT_CODE
-        self.PARTITION_TABLE_ENTRIES = PARTITION_TABLE_ENTRIES
-        self.SIGNATURE = SIGNATURE
+        self.BOOT_CODE = boot_code
+        self.PARTITION_TABLE_ENTRIES = partition_table_entries
+        self.SIGNATURE = signature
 
     @staticmethod
     def from_reader(reader: Reader):
@@ -36,10 +37,14 @@ class MBR:
                     raw_partitions[i : i + 16]
                 )
 
-                if partition_table_entry.START_LBA_ADDRESS == 0x00000000:
+                if partition_table_entry.START_LBA_ADDRESS == PartitionType.EMPTY:
                     die_flag = False
                     break
-                elif partition_table_entry.PARTITION_TYPE == 0x05:
+
+                elif (
+                    partition_table_entry.PARTITION_TYPE
+                    == PartitionType.EXTENDED_WITH_CHS
+                ):
                     base_sectors.append(
                         base_sectors[-1] + partition_table_entry.START_LBA_ADDRESS
                     )
@@ -48,6 +53,7 @@ class MBR:
                         + partition_table_entry.START_LBA_ADDRESS
                     )
                     break
+
                 else:
                     partition_table_entry.START_LBA_ADDRESS += base_sectors[-1]
                     partition_table_entries.append(partition_table_entry)
